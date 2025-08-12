@@ -1,0 +1,27 @@
+{
+  "name": "blinds-price-monitor",
+  "version": "1.0.0",
+  "description": "Monitor de preços automatizado para Blinds.com",
+  "main": "blinds_monitor.js",
+  "scripts": {
+    "start": "node blinds_monitor.js",
+    "monitor": "node blinds_monitor.js monitor",
+    "report": "node blinds_monitor.js report",
+    "install-deps": "npm install"
+  },
+  "keywords": [
+    "price-monitor",
+    "automation",
+    "puppeteer",
+    "blinds",
+    "web-scraping"
+  ],
+  "author": "Claude Code Assistant",
+  "license": "MIT",
+  "dependencies": {
+    "puppeteer": "^21.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+} 
