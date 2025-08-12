@@ -890,27 +890,8 @@ body {
         gap: var(--space-lg);
     }
     
-    .tech-grid {
-        grid-template-columns: 1fr;
-        gap: var(--space-md);
-    }
-    
-    .hero-image-main {
-        padding: var(--space-lg);
-        margin-top: var(--space-xl);
-    }
-    
-    .tech-card {
-        padding: var(--space-md);
-    }
-    
-    .tech-icon {
-        font-size: 1.5rem;
-        margin-bottom: var(--space-xs);
-    }
-    
-    .tech-card span {
-        font-size: 0.8rem;
+    .hero-visual {
+        display: none;
     }
 }
 
@@ -944,25 +925,6 @@ body {
         gap: var(--space-md);
     }
     
-    .hero-visual {
-        margin-top: var(--space-2xl);
-    }
-    
-    .hero-image-main {
-        padding: var(--space-md);
-        max-width: 280px;
-        margin: 0 auto;
-    }
-    
-    .tech-grid {
-        gap: var(--space-sm);
-    }
-    
-    .tech-card {
-        padding: var(--space-sm) var(--space-md);
-        min-height: 80px;
-        justify-content: center;
-    }
 }
 
 /* Smooth entrance animations */
