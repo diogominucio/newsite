@@ -3,64 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sua Empresa - Soluções Profissionais</title>
+    <title>TechSolutions - Digital Innovation Partner</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
+    <header class="header">
         <nav class="navbar">
             <div class="nav-brand">
-                <h2>SUA EMPRESA</h2>
+                <svg width="120" height="32" viewBox="0 0 120 32">
+                    <rect width="8" height="32" fill="#FF6B35" rx="2"/>
+                    <rect x="12" y="8" width="8" height="24" fill="#4A90E2" rx="2"/>
+                    <rect x="24" y="4" width="8" height="28" fill="#00C896" rx="2"/>
+                    <text x="40" y="22" font-family="Inter, sans-serif" font-weight="700" font-size="18" fill="#1A1A1A">TechSolutions</text>
+                </svg>
             </div>
             <ul class="nav-menu">
-                <li><a href="#home">Início</a></li>
-                <li><a href="#servicos">Serviços</a></li>
-                <li><a href="#sobre">Sobre</a></li>
-                <li><a href="#contato">Contato</a></li>
+                <li class="nav-item dropdown">
+                    <a href="#solutions" class="nav-link">Solutions</a>
+                    <div class="dropdown-content">
+                        <a href="#digital-transformation">Digital Transformation</a>
+                        <a href="#cloud-services">Cloud Services</a>
+                        <a href="#ai-automation">AI & Automation</a>
+                    </div>
+                </li>
+                <li class="nav-item"><a href="#services" class="nav-link">Services</a></li>
+                <li class="nav-item"><a href="#insights" class="nav-link">Insights</a></li>
+                <li class="nav-item"><a href="#careers" class="nav-link">Careers</a></li>
+                <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
             </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+            <div class="nav-actions">
+                <a href="#contact" class="btn-contact">Let's Talk</a>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
         </nav>
     </header>
 
     <main>
         <section id="home" class="hero">
-            <div class="hero-content">
-                <h1>Transformamos Ideias em Resultados</h1>
-                <p>Soluções profissionais para impulsionar seu negócio ao próximo nível</p>
-                <div class="cta-buttons">
-                    <a href="#contato" class="btn-primary">Fale Conosco</a>
-                    <a href="#servicos" class="btn-secondary">Nossos Serviços</a>
+            <div class="hero-background">
+                <div class="hero-gradient"></div>
+                <div class="floating-elements">
+                    <div class="float-element element-1"></div>
+                    <div class="float-element element-2"></div>
+                    <div class="float-element element-3"></div>
                 </div>
             </div>
-            <div class="hero-image">
-                <div class="placeholder-image">
-                    <span>Imagem do Negócio</span>
+            <div class="hero-container">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <span class="badge-icon">🚀</span>
+                        <span class="badge-text">Leading Digital Innovation</span>
+                    </div>
+                    <h1 class="hero-title">
+                        We transform
+                        <span class="highlight-text">businesses</span>
+                        through technology
+                    </h1>
+                    <p class="hero-description">
+                        Partner with us to accelerate your digital transformation journey. 
+                        We combine human insight with cutting-edge technology to deliver 
+                        exceptional experiences and drive sustainable growth.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#contact" class="btn-primary-large">
+                            <span>Start Your Journey</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M4.16666 10H15.8333M15.8333 10L10.8333 5M15.8333 10L10.8333 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                        <a href="#solutions" class="btn-secondary-outline">
+                            <span>Explore Solutions</span>
+                        </a>
+                    </div>
+                    <div class="hero-metrics">
+                        <div class="metric">
+                            <span class="metric-number">500+</span>
+                            <span class="metric-label">Global Clients</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-number">15+</span>
+                            <span class="metric-label">Years Experience</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-number">98%</span>
+                            <span class="metric-label">Success Rate</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-image-container">
+                        <div class="hero-image-main">
+                            <div class="tech-grid">
+                                <div class="tech-card active">
+                                    <div class="tech-icon">🤖</div>
+                                    <span>AI Solutions</span>
+                                </div>
+                                <div class="tech-card">
+                                    <div class="tech-icon">☁️</div>
+                                    <span>Cloud Native</span>
+                                </div>
+                                <div class="tech-card">
+                                    <div class="tech-icon">📊</div>
+                                    <span>Data Analytics</span>
+                                </div>
+                                <div class="tech-card">
+                                    <div class="tech-icon">🔒</div>
+                                    <span>Cybersecurity</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="servicos" class="services">
+        <section id="solutions" class="solutions">
             <div class="container">
-                <h2>Nossos Serviços</h2>
-                <div class="services-grid">
-                    <div class="service-card">
-                        <div class="service-icon">📊</div>
-                        <h3>Consultoria</h3>
-                        <p>Análise completa do seu negócio com estratégias personalizadas</p>
+                <div class="section-header">
+                    <div class="section-badge">
+                        <span class="badge-dot"></span>
+                        <span>Our Solutions</span>
                     </div>
-                    <div class="service-card">
-                        <div class="service-icon">💻</div>
-                        <h3>Desenvolvimento</h3>
-                        <p>Soluções tecnológicas inovadoras para automatizar processos</p>
+                    <h2 class="section-title">Comprehensive digital solutions for modern businesses</h2>
+                    <p class="section-description">We deliver end-to-end technology solutions that transform how you work, connect with customers, and drive growth.</p>
+                </div>
+                
+                <div class="solutions-grid">
+                    <div class="solution-card featured">
+                        <div class="solution-header">
+                            <div class="solution-icon">
+                                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                                    <path d="M16 2L28 8L16 14L4 8L16 2Z" stroke="#FF6B35" stroke-width="2" stroke-linejoin="round"/>
+                                    <path d="M4 16L16 22L28 16" stroke="#FF6B35" stroke-width="2" stroke-linejoin="round"/>
+                                    <path d="M4 24L16 30L28 24" stroke="#FF6B35" stroke-width="2" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <span class="solution-category">Digital Transformation</span>
+                        </div>
+                        <h3>Enterprise Modernization</h3>
+                        <p>Transform legacy systems into modern, scalable, cloud-native solutions that drive efficiency and innovation.</p>
+                        <div class="solution-features">
+                            <span class="feature-tag">Cloud Migration</span>
+                            <span class="feature-tag">API Integration</span>
+                            <span class="feature-tag">DevOps</span>
+                        </div>
+                        <a href="#" class="solution-link">
+                            Learn More
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M3.33334 8H12.6667M12.6667 8L8.66668 4M12.6667 8L8.66668 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
                     </div>
-                    <div class="service-card">
-                        <div class="service-icon">📈</div>
-                        <h3>Marketing</h3>
-                        <p>Estratégias digitais para aumentar sua visibilidade online</p>
+                    
+                    <div class="solution-card">
+                        <div class="solution-header">
+                            <div class="solution-icon">
+                                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                                    <circle cx="16" cy="16" r="6" stroke="#4A90E2" stroke-width="2"/>
+                                    <circle cx="16" cy="16" r="14" stroke="#4A90E2" stroke-width="2"/>
+                                    <circle cx="16" cy="2" r="2" fill="#4A90E2"/>
+                                    <circle cx="16" cy="30" r="2" fill="#4A90E2"/>
+                                    <circle cx="2" cy="16" r="2" fill="#4A90E2"/>
+                                    <circle cx="30" cy="16" r="2" fill="#4A90E2"/>
+                                </svg>
+                            </div>
+                            <span class="solution-category">AI & Automation</span>
+                        </div>
+                        <h3>Intelligent Automation</h3>
+                        <p>Harness the power of AI and machine learning to automate processes and unlock valuable insights.</p>
+                        <div class="solution-features">
+                            <span class="feature-tag">Machine Learning</span>
+                            <span class="feature-tag">Process Automation</span>
+                        </div>
+                        <a href="#" class="solution-link">
+                            Learn More
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M3.33334 8H12.6667M12.6667 8L8.66668 4M12.6667 8L8.66668 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                    </div>
+                    
+                    <div class="solution-card">
+                        <div class="solution-header">
+                            <div class="solution-icon">
+                                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                                    <path d="M8 16C8 21.5228 12.4772 26 18 26C23.5228 26 28 21.5228 28 16C28 10.4772 23.5228 6 18 6" stroke="#00C896" stroke-width="2"/>
+                                    <path d="M16 8C16 12.4183 12.4183 16 8 16C3.58172 16 0 12.4183 0 8C0 3.58172 3.58172 0 8 0" stroke="#00C896" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <span class="solution-category">Data & Analytics</span>
+                        </div>
+                        <h3>Data-Driven Insights</h3>
+                        <p>Transform raw data into actionable insights with advanced analytics and business intelligence solutions.</p>
+                        <div class="solution-features">
+                            <span class="feature-tag">Big Data</span>
+                            <span class="feature-tag">Business Intelligence</span>
+                        </div>
+                        <a href="#" class="solution-link">
+                            Learn More
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M3.33334 8H12.6667M12.6667 8L8.66668 4M12.6667 8L8.66668 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
                     </div>
                 </div>
             </div>
