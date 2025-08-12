@@ -28,9 +28,9 @@ jobs:
       - name: Build site
         run: |
           mkdir -p _site
-          cp index-comercial.html _site/index.html
-          cp style-comercial.css _site/style.css
-          cp script-comercial.js _site/script.js
+          cp index.html _site/index.html
+          cp style.css _site/style.css
+          cp script.js _site/script.js
           
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
