@@ -88,9 +88,13 @@ class BloombergDashboard {
         // Navigation items
         document.querySelectorAll('.nav-item').forEach(item => {
             item.addEventListener('click', (e) => {
-                e.preventDefault();
-                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-                item.classList.add('active');
+                const href = item.getAttribute('href');
+                // Only prevent default for hash links (internal navigation)
+                if (href === '#' || href.startsWith('#')) {
+                    e.preventDefault();
+                    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+                }
                 // Close mobile sidebar
                 sidebar?.classList.remove('open');
             });
