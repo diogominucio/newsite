@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOURLY PERFORMANCE - SelectBlinds Analytics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="hourly-performance.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
+</head>
+<body>
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <button class="mobile-menu-toggle" id="mobileMenuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="mobile-brand">
+            <span class="brand-text">SB<span class="accent">|</span>ANALYTICS</span>
+        </div>
+        <button class="mobile-user-button" id="mobileUserButton">
+            <span id="mobileUserInitial">A</span>
+        </button>
+    </div>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="brand">
+                <span class="brand-text">SB<span class="accent">|</span>ANALYTICS</span>
+            </div>
+        </div>
+
+        <div class="nav-menu">
+            <a href="dashboard-bloomberg.html" class="nav-item">
+                <span class="nav-icon">📊</span>
+                <span class="nav-label">OVERVIEW</span>
+            </a>
+            <a href="hourly-performance.html" class="nav-item active">
+                <span class="nav-icon">⏰</span>
+                <span class="nav-label">HOURLY</span>
+            </a>
+            <a href="dashboard-bloomberg.html#conversion" class="nav-item">
+                <span class="nav-icon">🎯</span>
+                <span class="nav-label">CONVERSION</span>
+            </a>
+            <a href="dashboard-bloomberg.html#products" class="nav-item">
+                <span class="nav-icon">📦</span>
+                <span class="nav-label">PRODUCTS</span>
+            </a>
+            <a href="dashboard-bloomberg.html#traffic" class="nav-item">
+                <span class="nav-icon">🌐</span>
+                <span class="nav-label">TRAFFIC</span>
+            </a>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <div class="user-avatar" id="userAvatar">A</div>
+                <div class="user-details">
+                    <div class="user-name" id="userName">Admin</div>
+                    <div class="user-role" id="userRole">Administrator</div>
+                </div>
+            </div>
+            <button class="logout-button" id="logoutButton">
+                <span>⎋</span> LOGOUT
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-left">
+                <span class="status-indicator pulsing"></span>
+                <span class="status-text">LIVE DATA</span>
+            </div>
+            <div class="status-center">
+                <span class="page-title">HOURLY PERFORMANCE MONITOR</span>
+            </div>
+            <div class="status-right">
+                <span class="current-date" id="currentDate"></span>
+                <span class="current-time" id="currentTime"></span>
+            </div>
+        </div>
+
+        <!-- Dashboard Content -->
+        <div class="dashboard-content">
+            <!-- Comparison Summary -->
+            <div class="section-header">
+                <h2 class="section-title">TODAY vs SAME DAY LAST YEAR (YoY)</h2>
+                <div class="comparison-info">
+                    <span id="todayInfo">Today: Loading...</span>
+                    <span class="separator">|</span>
+                    <span id="lastYearInfo">Last Year: Loading...</span>
+                </div>
+            </div>
+
+            <!-- KPI Cards -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-header">
+                        <span class="kpi-label">REVENUE (YTD)</span>
+                        <span class="kpi-change" id="revenueChange">--</span>
+                    </div>
+                    <div class="kpi-value" id="revenueValue">$0</div>
+                    <div class="kpi-comparison">
+                        <span class="today-value" id="revenueToday">Today: $0</span>
+                        <span class="lastyear-value" id="revenueLastYear">Last Yr: $0</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-header">
+                        <span class="kpi-label">VISITORS (YTD)</span>
+                        <span class="kpi-change" id="visitorsChange">--</span>
+                    </div>
+                    <div class="kpi-value" id="visitorsValue">0</div>
+                    <div class="kpi-comparison">
+                        <span class="today-value" id="visitorsToday">Today: 0</span>
+                        <span class="lastyear-value" id="visitorsLastYear">Last Yr: 0</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-header">
+                        <span class="kpi-label">ORDERS (YTD)</span>
+                        <span class="kpi-change" id="ordersChange">--</span>
+                    </div>
+                    <div class="kpi-value" id="ordersValue">0</div>
+                    <div class="kpi-comparison">
+                        <span class="today-value" id="ordersToday">Today: 0</span>
+                        <span class="lastyear-value" id="ordersLastYear">Last Yr: 0</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-header">
+                        <span class="kpi-label">CONV RATE (YTD)</span>
+                        <span class="kpi-change" id="convRateChange">--</span>
+                    </div>
+                    <div class="kpi-value" id="convRateValue">0%</div>
+                    <div class="kpi-comparison">
+                        <span class="today-value" id="convRateToday">Today: 0%</span>
+                        <span class="lastyear-value" id="convRateLastYear">Last Yr: 0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-grid">
+                <!-- Revenue Comparison Chart -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3 class="chart-title">REVENUE COMPARISON (HOURLY)</h3>
+                        <div class="chart-legend">
+                            <span class="legend-item today">
+                                <span class="legend-color"></span>
+                                <span>Today</span>
+                            </span>
+                            <span class="legend-item lastyear">
+                                <span class="legend-color"></span>
+                                <span>Last Year</span>
+                            </span>
+                        </div>
+                    </div>
+                    <canvas id="revenueChart"></canvas>
+                </div>
+
+                <!-- Visitors Comparison Chart -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3 class="chart-title">VISITORS COMPARISON (HOURLY)</h3>
+                        <div class="chart-legend">
+                            <span class="legend-item today">
+                                <span class="legend-color"></span>
+                                <span>Today</span>
+                            </span>
+                            <span class="legend-item lastyear">
+                                <span class="legend-color"></span>
+                                <span>Last Year</span>
+                            </span>
+                        </div>
+                    </div>
+                    <canvas id="visitorsChart"></canvas>
+                </div>
+
+                <!-- Orders Comparison Chart -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3 class="chart-title">ORDERS COMPARISON (HOURLY)</h3>
+                        <div class="chart-legend">
+                            <span class="legend-item today">
+                                <span class="legend-color"></span>
+                                <span>Today</span>
+                            </span>
+                            <span class="legend-item lastyear">
+                                <span class="legend-color"></span>
+                                <span>Last Year</span>
+                            </span>
+                        </div>
+                    </div>
+                    <canvas id="ordersChart"></canvas>
+                </div>
+
+                <!-- Conversion Rate Comparison Chart -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3 class="chart-title">CONVERSION RATE (HOURLY)</h3>
+                        <div class="chart-legend">
+                            <span class="legend-item today">
+                                <span class="legend-color"></span>
+                                <span>Today</span>
+                            </span>
+                            <span class="legend-item lastyear">
+                                <span class="legend-color"></span>
+                                <span>Last Year</span>
+                            </span>
+                        </div>
+                    </div>
+                    <canvas id="convRateChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Hourly Details Table -->
+            <div class="table-container">
+                <div class="table-header">
+                    <h3 class="table-title">HOURLY BREAKDOWN</h3>
+                    <div class="table-info">
+                        <span>Up to current hour only</span>
+                    </div>
+                </div>
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>HOUR</th>
+                                <th>REVENUE (TODAY)</th>
+                                <th>REVENUE (LAST YR)</th>
+                                <th>CHANGE</th>
+                                <th>VISITORS (TODAY)</th>
+                                <th>VISITORS (LAST YR)</th>
+                                <th>CHANGE</th>
+                                <th>ORDERS (TODAY)</th>
+                                <th>ORDERS (LAST YR)</th>
+                                <th>CHANGE</th>
+                            </tr>
+                        </thead>
+                        <tbody id="hourlyTableBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="hourly-performance.js"></script>
+</body>
+</html>

@@ -182,6 +182,22 @@ app.post('/api/ga4/realtime', authenticate, async (req, res) => {
     }
 });
 
+/**
+ * Endpoint para performance hora a hora
+ */
+app.post('/api/ga4/hourly-performance', authenticate, async (req, res) => {
+    try {
+        const { propertyId } = req.body;
+
+        const data = await fetchHourlyPerformance(propertyId);
+
+        res.json(data);
+    } catch (error) {
+        console.error('Erro ao buscar dados hora a hora:', error);
+        res.status(500).json({ error: 'Erro ao buscar dados de performance hora a hora' });
+    }
+});
+
 // ========================
 // GA4 Integration Functions
 // ========================
@@ -310,6 +326,66 @@ async function fetchTransactions(propertyId, limit) {
 async function fetchRealtimeData(propertyId) {
     // Implementar lógica para buscar dados em tempo real
     return {};
+}
+
+async function fetchHourlyPerformance(propertyId) {
+    // Implementar lógica para buscar dados hora a hora
+    // Compara o dia atual com o mesmo dia da semana do ano passado
+
+    const today = new Date();
+    const lastYear = new Date(today);
+    lastYear.setFullYear(lastYear.getFullYear() - 1);
+
+    // Ajusta para o mesmo dia da semana do ano passado
+    const dayOfWeek = today.getDay();
+    const daysToAdjust = today.getDay() - lastYear.getDay();
+    lastYear.setDate(lastYear.getDate() + daysToAdjust);
+
+    const currentHour = today.getHours();
+
+    // Gera dados mock por enquanto
+    // TODO: Integrar com GA4 API para dados reais
+    const todayHourly = [];
+    const lastYearHourly = [];
+
+    for (let hour = 0; hour <= currentHour; hour++) {
+        todayHourly.push({
+            hour: hour,
+            revenue: Math.floor(Math.random() * 5000) + 2000,
+            visitors: Math.floor(Math.random() * 500) + 200,
+            orders: Math.floor(Math.random() * 50) + 10,
+            conversionRate: (Math.random() * 3 + 1).toFixed(2)
+        });
+
+        lastYearHourly.push({
+            hour: hour,
+            revenue: Math.floor(Math.random() * 4000) + 1500,
+            visitors: Math.floor(Math.random() * 400) + 150,
+            orders: Math.floor(Math.random() * 40) + 8,
+            conversionRate: (Math.random() * 2.5 + 0.8).toFixed(2)
+        });
+    }
+
+    return {
+        today: {
+            date: today.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            }),
+            hourly: todayHourly
+        },
+        lastYear: {
+            date: lastYear.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            }),
+            hourly: lastYearHourly
+        }
+    };
 }
 
 // ========================
