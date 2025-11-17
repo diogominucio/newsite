@@ -8,8 +8,15 @@ class BloombergDashboard {
 
     init() {
         // Check authentication
-        if (!authService || !authService.isAuthenticated()) {
-            window.location.href = 'login.html';
+        if (typeof authService === 'undefined') {
+            console.error('AuthService not loaded');
+            window.location.replace('login.html');
+            return;
+        }
+
+        if (!authService.isAuthenticated()) {
+            sessionStorage.removeItem('login_check_done');
+            window.location.replace('login.html');
             return;
         }
 

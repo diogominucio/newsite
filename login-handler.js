@@ -8,11 +8,19 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // Check if already authenticated
-    if (authService.isAuthenticated()) {
-        window.location.href = 'dashboard.html';
+    // Check if authService is available
+    if (typeof authService === 'undefined') {
+        console.error('AuthService not loaded');
         return;
     }
+
+    // Check if already authenticated (only once, without redirect loop)
+    if (authService.isAuthenticated() && !sessionStorage.getItem('login_check_done')) {
+        sessionStorage.setItem('login_check_done', 'true');
+        window.location.replace('dashboard-bloomberg.html');
+        return;
+    }
+    sessionStorage.removeItem('login_check_done');
 
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -33,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Success - redirect to dashboard
                 submitBtn.innerHTML = '<span>Success! Redirecting...</span>';
                 setTimeout(() => {
-                    window.location.href = 'dashboard.html';
+                    window.location.replace('dashboard-bloomberg.html');
                 }, 500);
             } else {
                 // Authentication error
