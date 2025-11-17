@@ -28,16 +28,22 @@ jobs:
       - name: Build site
         run: |
           mkdir -p _site
-          # Dashboard files
+          # Login files
           cp login.html _site/login.html
           cp login.css _site/login.css
           cp login-handler.js _site/login-handler.js
+          # Bloomberg Dashboard files
+          cp dashboard-bloomberg.html _site/dashboard-bloomberg.html
+          cp dashboard-bloomberg.css _site/dashboard-bloomberg.css
+          cp dashboard-bloomberg.js _site/dashboard-bloomberg.js
+          # Dashboard redirect
           cp dashboard.html _site/dashboard.html
-          cp dashboard.css _site/dashboard.css
+          # Shared files
           cp auth.js _site/auth.js
-          cp dashboard.js _site/dashboard.js
           cp ga4-integration.js _site/ga4-integration.js
           # Legacy files (if needed)
+          cp dashboard.css _site/dashboard.css 2>/dev/null || true
+          cp dashboard.js _site/dashboard.js 2>/dev/null || true
           cp index.html _site/index.html 2>/dev/null || true
           cp style.css _site/style.css 2>/dev/null || true
           cp script.js _site/script.js 2>/dev/null || true
