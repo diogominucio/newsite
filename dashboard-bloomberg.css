@@ -1,0 +1,596 @@
+/* SelectBlinds Bloomberg Terminal Dashboard */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bloomberg-black: #000000;
+    --bloomberg-orange: #F7931E;
+    --bloomberg-dark-gray: #0a0a0a;
+    --bloomberg-med-gray: #1a1a1a;
+    --bloomberg-light-gray: #808080;
+    --bloomberg-text: #e0e0e0;
+    --bloomberg-border: #222222;
+    --positive-green: #00ff00;
+    --negative-red: #ff4444;
+    --neutral-gray: #888888;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bloomberg-black);
+    color: var(--bloomberg-text);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Mobile Header */
+.mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.875rem 1rem;
+    background: var(--bloomberg-dark-gray);
+    border-bottom: 2px solid var(--bloomberg-border);
+    border-top: 2px solid var(--bloomberg-orange);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.menu-toggle {
+    background: none;
+    border: none;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--bloomberg-orange);
+    transition: all 0.3s;
+}
+
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.brand-icon {
+    color: var(--bloomberg-orange);
+    font-size: 1.125rem;
+}
+
+.brand-name {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #ffffff;
+}
+
+.user-toggle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--bloomberg-orange);
+    color: var(--bloomberg-black);
+    border: none;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 280px;
+    background: var(--bloomberg-dark-gray);
+    border-right: 2px solid var(--bloomberg-border);
+    display: flex;
+    flex-direction: column;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 101;
+}
+
+.sidebar.open {
+    transform: translateX(0);
+}
+
+.sidebar-header {
+    padding: 1rem;
+    border-bottom: 1px solid var(--bloomberg-border);
+}
+
+.terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--positive-green);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.terminal-text {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--bloomberg-orange);
+}
+
+/* Navigation */
+.sidebar-nav {
+    flex: 1;
+    padding: 1rem 0.5rem;
+    overflow-y: auto;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    margin-bottom: 0.25rem;
+    color: var(--bloomberg-light-gray);
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    transition: all 0.2s;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.nav-item:hover {
+    background: var(--bloomberg-med-gray);
+    color: var(--bloomberg-orange);
+}
+
+.nav-item.active {
+    background: var(--bloomberg-med-gray);
+    border-left-color: var(--bloomberg-orange);
+    color: #ffffff;
+}
+
+.nav-icon {
+    font-size: 1rem;
+}
+
+/* Sidebar Footer */
+.sidebar-footer {
+    padding: 1rem;
+    border-top: 1px solid var(--bloomberg-border);
+}
+
+.user-info {
+    margin-bottom: 0.75rem;
+}
+
+.user-name {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 0.25rem;
+}
+
+.user-role {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.6875rem;
+    color: var(--bloomberg-light-gray);
+}
+
+.btn-logout {
+    width: 100%;
+    padding: 0.75rem;
+    background: transparent;
+    border: 1px solid var(--bloomberg-border);
+    color: var(--bloomberg-light-gray);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-logout:hover {
+    border-color: var(--negative-red);
+    color: var(--negative-red);
+}
+
+/* Main Content */
+.main-content {
+    padding: 1rem;
+    min-height: 100vh;
+}
+
+/* Status Bar */
+.status-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    background: var(--bloomberg-dark-gray);
+    border: 1px solid var(--bloomberg-border);
+    border-left: 3px solid var(--bloomberg-orange);
+    margin-bottom: 1rem;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.status-label {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--bloomberg-light-gray);
+}
+
+.status-value {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--bloomberg-orange);
+}
+
+.period-select {
+    background: var(--bloomberg-black);
+    border: 1px solid var(--bloomberg-border);
+    padding: 0.375rem 0.625rem;
+    color: var(--bloomberg-orange);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-refresh {
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: 1px solid var(--bloomberg-border);
+    color: var(--bloomberg-orange);
+    font-size: 1.125rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-refresh:hover {
+    transform: rotate(180deg);
+    border-color: var(--bloomberg-orange);
+}
+
+/* KPI Grid */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.kpi-card {
+    background: var(--bloomberg-dark-gray);
+    border: 1px solid var(--bloomberg-border);
+    border-left: 3px solid var(--bloomberg-orange);
+    padding: 1rem;
+    transition: transform 0.2s;
+}
+
+.kpi-card:hover {
+    transform: translateY(-2px);
+}
+
+.kpi-card.alert {
+    border-left-color: var(--negative-red);
+}
+
+.kpi-label {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: var(--bloomberg-light-gray);
+    margin-bottom: 0.5rem;
+}
+
+.kpi-value {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.375rem;
+}
+
+.kpi-change {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.kpi-change.positive {
+    color: var(--positive-green);
+}
+
+.kpi-change.negative {
+    color: var(--negative-red);
+}
+
+.kpi-change.neutral {
+    color: var(--neutral-gray);
+}
+
+/* Charts Grid */
+.charts-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.chart-card {
+    background: var(--bloomberg-dark-gray);
+    border: 1px solid var(--bloomberg-border);
+    padding: 1rem;
+}
+
+.chart-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--bloomberg-border);
+}
+
+.chart-title {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: var(--bloomberg-text);
+}
+
+.chart-period {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.625rem;
+    font-weight: 600;
+    color: var(--bloomberg-orange);
+}
+
+.chart-container {
+    position: relative;
+    height: 240px;
+}
+
+/* Table Section */
+.table-section {
+    background: var(--bloomberg-dark-gray);
+    border: 1px solid var(--bloomberg-border);
+    margin-bottom: 1.5rem;
+}
+
+.table-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid var(--bloomberg-border);
+}
+
+.table-title {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: var(--bloomberg-text);
+}
+
+.btn-export {
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: 1px solid var(--bloomberg-border);
+    color: var(--bloomberg-orange);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-export:hover {
+    background: var(--bloomberg-orange);
+    color: var(--bloomberg-black);
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th {
+    padding: 0.875rem;
+    text-align: left;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--bloomberg-light-gray);
+    border-bottom: 1px solid var(--bloomberg-border);
+    white-space: nowrap;
+}
+
+.data-table td {
+    padding: 0.875rem;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--bloomberg-text);
+    border-bottom: 1px solid var(--bloomberg-border);
+}
+
+.data-table tr:hover {
+    background: rgba(247, 147, 30, 0.05);
+}
+
+.status-badge {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-left: 2px solid;
+}
+
+.status-badge.completed {
+    color: var(--positive-green);
+    border-left-color: var(--positive-green);
+    background: rgba(0, 255, 0, 0.05);
+}
+
+.status-badge.processing {
+    color: var(--bloomberg-orange);
+    border-left-color: var(--bloomberg-orange);
+    background: rgba(247, 147, 30, 0.05);
+}
+
+.status-badge.pending {
+    color: var(--neutral-gray);
+    border-left-color: var(--neutral-gray);
+    background: rgba(136, 136, 136, 0.05);
+}
+
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    z-index: 1000;
+}
+
+.loading-overlay.active {
+    display: flex;
+}
+
+.loading-spinner {
+    width: 48px;
+    height: 48px;
+    border: 3px solid var(--bloomberg-border);
+    border-top-color: var(--bloomberg-orange);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-text {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--bloomberg-orange);
+}
+
+/* Tablet and Desktop */
+@media (min-width: 768px) {
+    .mobile-header {
+        display: none;
+    }
+
+    .sidebar {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        margin-left: 280px;
+        padding: 1.5rem;
+    }
+
+    .kpi-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .charts-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .chart-card.span-2 {
+        grid-column: span 2;
+    }
+
+    .chart-container {
+        height: 280px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .kpi-grid {
+        grid-template-columns: repeat(6, 1fr);
+    }
+
+    .charts-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .chart-card.span-2 {
+        grid-column: span 2;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .status-dot,
+    .loading-spinner {
+        animation: none;
+    }
+
+    .btn-refresh:hover {
+        transform: none;
+    }
+}

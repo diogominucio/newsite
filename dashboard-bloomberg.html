@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SelectBlinds | Analytics Terminal</title>
+    <link rel="stylesheet" href="dashboard-bloomberg.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <button class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="header-brand">
+            <span class="brand-icon">█</span>
+            <span class="brand-name">SELECT BLINDS</span>
+        </div>
+        <button class="user-toggle" id="userToggle">
+            <span id="userInitials">AD</span>
+        </button>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="terminal-bar">
+                <span class="status-dot"></span>
+                <span class="terminal-text">ANALYTICS TERMINAL</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item active" data-view="overview">
+                <span class="nav-icon">▣</span>
+                <span class="nav-text">OVERVIEW</span>
+            </a>
+            <a href="#" class="nav-item" data-view="conversion">
+                <span class="nav-icon">▼</span>
+                <span class="nav-text">CONVERSION</span>
+            </a>
+            <a href="#" class="nav-item" data-view="products">
+                <span class="nav-icon">■</span>
+                <span class="nav-text">PRODUCTS</span>
+            </a>
+            <a href="#" class="nav-item" data-view="traffic">
+                <span class="nav-icon">◆</span>
+                <span class="nav-text">TRAFFIC</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <div class="user-name" id="userName">ADMIN</div>
+                <div class="user-role" id="userRole">Administrator</div>
+            </div>
+            <button class="btn-logout" id="logoutBtn">
+                <span>→ LOGOUT</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-item">
+                <span class="status-label">LAST UPDATE</span>
+                <span class="status-value" id="lastUpdate">--:--:--</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">PERIOD</span>
+                <select id="dateRange" class="period-select">
+                    <option value="today">TODAY</option>
+                    <option value="7days" selected>7D</option>
+                    <option value="30days">30D</option>
+                    <option value="90days">90D</option>
+                </select>
+            </div>
+            <div class="status-item">
+                <button class="btn-refresh" id="refreshBtn">↻</button>
+            </div>
+        </div>
+
+        <!-- KPI Grid -->
+        <section class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-label">REVENUE</div>
+                <div class="kpi-value" id="revenue">$0</div>
+                <div class="kpi-change positive" id="revenueChange">+0%</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-label">VISITORS</div>
+                <div class="kpi-value" id="visitors">0</div>
+                <div class="kpi-change positive" id="visitorsChange">+0%</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-label">CONV RATE</div>
+                <div class="kpi-value" id="convRate">0%</div>
+                <div class="kpi-change positive" id="convRateChange">+0%</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-label">AVG ORDER</div>
+                <div class="kpi-value" id="avgOrder">$0</div>
+                <div class="kpi-change positive" id="avgOrderChange">+0%</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-label">ORDERS</div>
+                <div class="kpi-value" id="orders">0</div>
+                <div class="kpi-change neutral" id="ordersChange">--</div>
+            </div>
+
+            <div class="kpi-card alert">
+                <div class="kpi-label">CART ABAND</div>
+                <div class="kpi-value" id="cartAband">0%</div>
+                <div class="kpi-change negative" id="cartAbandChange">+0%</div>
+            </div>
+        </section>
+
+        <!-- Charts Section -->
+        <section class="charts-grid">
+            <!-- Revenue Chart -->
+            <div class="chart-card span-2">
+                <div class="chart-header">
+                    <span class="chart-title">REVENUE TREND</span>
+                    <span class="chart-period">7D</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="revenueChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Funnel Chart -->
+            <div class="chart-card span-2">
+                <div class="chart-header">
+                    <span class="chart-title">CONVERSION FUNNEL</span>
+                    <span class="chart-period">7D</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="funnelChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Traffic Sources -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <span class="chart-title">TRAFFIC SOURCES</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="trafficChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Top Products -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <span class="chart-title">TOP PRODUCTS</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="productsChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Transactions Table -->
+        <section class="table-section">
+            <div class="table-header">
+                <span class="table-title">RECENT TRANSACTIONS</span>
+                <button class="btn-export" id="exportBtn">EXPORT CSV</button>
+            </div>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>TIME</th>
+                            <th>CUSTOMER</th>
+                            <th>PRODUCT</th>
+                            <th>AMOUNT</th>
+                            <th>STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transactionsBody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">LOADING DATA...</div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="dashboard-bloomberg.js"></script>
+</body>
+</html>
