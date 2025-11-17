@@ -85,18 +85,25 @@ class BloombergDashboard {
             });
         }
 
-        // Navigation items
-        document.querySelectorAll('.nav-item').forEach(item => {
+        // Navigation items - only add click handler to internal links
+        document.querySelectorAll('.nav-item[href="#"], .nav-item[href^="#"], .nav-item[data-view]').forEach(item => {
             item.addEventListener('click', (e) => {
-                const href = item.getAttribute('href');
-                // Only prevent default for hash links (internal navigation)
-                if (href === '#' || href.startsWith('#')) {
-                    e.preventDefault();
-                    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-                    item.classList.add('active');
-                }
+                e.preventDefault();
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
                 // Close mobile sidebar
-                sidebar?.classList.remove('open');
+                if (sidebar) {
+                    sidebar.classList.remove('open');
+                }
+            });
+        });
+
+        // For external navigation links, just close sidebar
+        document.querySelectorAll('.nav-item[href]:not([href="#"]):not([href^="#"]):not([data-view])').forEach(item => {
+            item.addEventListener('click', () => {
+                if (sidebar) {
+                    sidebar.classList.remove('open');
+                }
             });
         });
     }
